@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Page with Music</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        background-size: 400% 400%;
+        animation: gradientMove 10s ease infinite;
+        z-index: -1;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      input {
+        padding: 10px;
+        margin: 10px 0;
+        width: 250px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      button {
+        padding: 10px 25px;
+        margin-top: 15px;
+        font-size: 18px;
+        background: #ff416c;
+        background: linear-gradient(to right, #ff4b2b, #ff416c);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: linear-gradient(to right, #ff416c, #ff4b2b);
+      }
+
+      #result {
+        margin-top: 15px;
+        font-size: 18px;
+      }
+
+      /* Home Page Styles */
+      .home {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .home h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+
+      .home p {
+        font-size: 22px;
+        margin-bottom: 40px;
+      }
+
+      /* Typewriter effect for the welcome message */
+      .typewriter h1 {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 4px solid orange;
+        width: 0;
+        animation: typing 4s steps(30) 1s forwards,
+          blink 0.75s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+
+    <div class="container" id="loginPage">
+      <h2>Login Form</h2>
+      <label for="username">Username:</label><br />
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter Your Username"
+      /><br />
+      <label for="password">Password:</label><br />
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Your Password"
+      /><br />
+      <button onclick="login()">Login</button>
+      <p id="result"></p>
+    </div>
+
+    <!-- Home Page -->
+    <div class="home" id="homePage">
+      <div class="typewriter">
+        <h1 id="welcomeText">Welcome, User!</h1>
+      </div>
+      <p id="motivationalQuote">
+        “The only way to do great work is to love what you do.” - Steve Jobs
+      </p>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Love Bollywood Music Player -->
+    <audio id="loveSong" loop>
+      <source src="music/love.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      function enableAutoPlay() {
+        const song = document.getElementById("loveSong");
+        song.play();
+        // Optional: Remove listener after first play
+        document.removeEventListener("click", enableAutoPlay);
+      }
+
+      document.addEventListener("click", enableAutoPlay);
+
+      const people = [
+        { username: "rahul", password: "123" },
+        { username: "sapna", password: "456" },
+        { username: "nirmla", password: "789" },
+        { username: "vimla", password: "012" },
+        { username: "admin", password: "admin123" },
+      ];
+
+      const quotes = [
+        " ✨ Wishing you endless happiness, unstoppable success, and a lifetime filled with love and laughter!✨ \n  \n 🕊️🌸 Thank You For Login! 🌸 \n🕊️🌿 Stay positive and keep shining! 🌿",
+
+        "🌟 May all your dreams turn into reality, your hard work into achievements, and your days into beautiful memories! 🌟 \n \n 🎊🎉 Thank You For Login! 🎉🎊 \n🥳 Your journey just got brighter! 🥳",
+
+        "💖 Wishing you strength for the journey, courage for every challenge, and joy that never fades away! 💖 \n \n 🚀🎯 Thank You For Login! 🎯🚀 \n 🎉 Let's make today amazing! 🎉",
+
+        " 🎉 May you be blessed with health, wealth, wisdom, and a heart full of peace and gratitude! 🎉 \n \n 💖🙏 Thank You For Login! 🙏💖 \n 🌈 Wishing you a magical journey ahead! 🌈",
+
+        "🌈 Here’s to new beginnings, exciting adventures, and countless victories ahead! 🌈 \n \n ✨🎉 Thank You For Login! 🎉✨ \n 🌟 We’re so happy to have you here! 🌟",
+
+        "  🕊️ Wishing you calm in every storm, light in every dark moment, and hope in every new day! 🕊️ \n \n 👑✨ Thank You For Login! ✨👑 \n 🌟 You are now part of something extraordinary! 🌟",
+
+        " 🔥 May your spirit stay fierce, your dreams stay wild, and your heart stay kind forever! 🔥 \n \n 🛡️⚡ Thank You For Login! ⚡🛡️ \n 💪 Stay strong, stay unstoppable! 💪",
+
+        "  🌻 Wishing you sunshine on your darkest days and success beyond your imagination! 🌻 \n \n 🌌🌠 Thank You For Login! 🌠🌌 \n 💫 Your stars have just aligned for greatness! 💫",
+      ];
+
+      function login() {
+        const user = document.getElementById("username").value.trim();
+        const pass = document.getElementById("password").value.trim();
+        const result = document.getElementById("result");
+
+        if (user === "" || pass === "") {
+          result.innerHTML = "⚠ Please fill all fields.";
+          result.style.color = "orange";
+          return;
+        }
+
+        const matchedUser = people.find(
+          (p) => p.username === user && p.password === pass
+        );
+
+        if (matchedUser) {
+          result.innerHTML = `✅ Welcome, ${matchedUser.username}!`;
+          result.style.color = "lightgreen";
+
+          setTimeout(() => {
+            showHomePage(matchedUser.username);
+          }, 1000);
+        } else {
+          result.innerHTML = "❌ Invalid username or password.";
+          result.style.color = "red";
+        }
+      }
+
+      function showHomePage(username) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("homePage").style.display = "flex";
+        document.getElementById(
+          "welcomeText"
+        ).innerText = `Welcome, ${username}! 🎉`;
+
+        // Show random motivational quote
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById("motivationalQuote").innerText = randomQuote;
+      }
+
+      function logout() {
+        location.reload(); // Page reload karne se logout ho jayega
+      }
+    </script>
+  </body>
+</html>
